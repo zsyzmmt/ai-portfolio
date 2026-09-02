@@ -1,0 +1,17 @@
+# 员工负面检测 - 依赖清单（Python 3.8 兼容固定版本）
+# 安装：C:\Python3\python.exe -m pip install -r requirements.txt
+# 注意：paddlepaddle/paddleocr 较大（几百 MB），首次安装耐心等待。
+
+Flask==2.3.3
+Pillow==10.4.0
+numpy==1.24.4
+
+# ---- OCR（中文图片文字识别）----
+# lmdb 用 1.4.1：2.x 在 py3.8 上无预编译包，需源码编译易失败
+paddlepaddle==2.6.2
+paddleocr==2.7.3
+lmdb==1.4.1
+opencv-python==4.6.0.66
+shapely==2.0.6
+scikit-image==0.21.0
+pyclipper

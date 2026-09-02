@@ -1,0 +1,112 @@
+# ============================================================
+# Resume Kit 配置文件
+# ============================================================
+
+# ---------- LLM 模型配置 ----------
+# 支持多种模型，通过 active_model 切换
+# 所有兼容 OpenAI API 格式的模型都可以用 openai_compatible 类型
+llm:
+  active_model: "deepseek"  # 当前使用的模型，可选：deepseek / openai / claude / moonshot / zhipu / custom
+
+  models:
+    deepseek:
+      type: "openai_compatible"
+      api_key: ""YOUR_API_KEY"
+      base_url: "https://api.deepseek.com/v1"
+      model: "deepseek-chat"
+      max_tokens: 4096
+      temperature: 0.3
+
+    openai:
+      type: "openai_compatible"
+      api_key: ""YOUR_API_KEY"
+      base_url: "https://api.openai.com/v1"
+      model: "gpt-4o-mini"
+      max_tokens: 4096
+      temperature: 0.3
+
+    claude:
+      type: "anthropic"
+      api_key: ""YOUR_API_KEY"
+      model: "claude-3-5-sonnet-20241022"
+      max_tokens: 4096
+      temperature: 0.3
+
+    moonshot:
+      type: "openai_compatible"
+      api_key: ""YOUR_API_KEY"
+      base_url: "https://api.moonshot.cn/v1"
+      model: "moonshot-v1-8k"
+      max_tokens: 4096
+      temperature: 0.3
+
+    zhipu:
+      type: "openai_compatible"
+      api_key: ""YOUR_API_KEY"
+      base_url: "https://open.bigmodel.cn/api/paas/v4"
+      model: "glm-4-flash"
+      max_tokens: 4096
+      temperature: 0.3
+
+    custom:
+      type: "openai_compatible"
+      api_key: ""YOUR_API_KEY"
+      base_url: "https://your-custom-endpoint/v1"
+      model: "your-model-name"
+      max_tokens: 4096
+      temperature: 0.3
+
+# ---------- Embedding 配置 ----------
+embedding:
+  # 可选：
+  #   tfidf  - TF-IDF向量化（轻量，无需下载模型，推荐默认使用）
+  #   local  - 本地sentence-transformers（语义检索更好，需安装torch+sentence-transformers）
+  #   openai - OpenAI Embedding API（需API密钥）
+  type: "local"
+  # 本地模型路径（从ModelScope下载，无需联网）
+  local_model: "C:\\models\\paraphrase-multilingual-MiniLM-L12-v2"
+  local_model_name: "paraphrase-multilingual-MiniLM-L12-v2"  # 模型原始名称（备用）
+  openai:
+    api_key: ""YOUR_API_KEY"
+    model: "text-embedding-3-small"
+    base_url: "https://api.openai.com/v1"
+
+# ---------- 知识库配置 ----------
+knowledge_base:
+  chunk_size: 500        # 文本分块大小（字符数）
+  chunk_overlap: 50      # 分块重叠大小
+  top_k: 8                # 检索返回的相关chunk数量
+  score_threshold: 0.01   # 相关性分数阈值（TF-IDF模式建议0.01，sentence-transformers建议0.3）
+
+# ---------- 简历生成配置 ----------
+resume:
+  name: "YOUR_NAME"
+  phone: "YOUR_PHONE"
+  email: "YOUR_EMAIL"
+  education:
+    school: "YOUR_SCHOOL"
+    major: "YOUR_MAJOR"
+    time: "YOUR_TIME"
+    detail: "YOUR_HIGHLIGHTS"
+  output_dir: "./output"
+  max_pages: 1
+
+# ---------- 审核配置 ----------
+audit:
+  history_dir: "./output/history"           # 历史简历保存目录（用于相似度对比）
+  report_dir: "./output/audit_reports"      # 审核报告输出目录
+  similarity_threshold: 0.80                 # 相似度阈值（超过则判定为照搬）
+  truthfulness_threshold: 0.60               # 真实性阈值（低于则判定为有编造嫌疑）
+  compliance_threshold: 0.60                 # 符合度阈值（低于则判定为不符合JD）
+  max_history_compare: 5                      # 最多对比多少份历史简历
+  auto_retry: true                            # 审核不通过是否自动重做
+  max_retries: 2                              # 最大重做次数
+  auto_audit: true                            # 生成简历后是否自动审核
+
+# ---------- Agent配置 ----------
+agent:
+  max_retries: 3                              # 最大迭代次数（生成→审核→修改循环）
+  target_score: 70                            # 目标综合评分（达到则停止循环）
+  auto_save: true                             # 自动保存每轮结果
+  output_dir: "./output/agent"                # Agent输出目录
+

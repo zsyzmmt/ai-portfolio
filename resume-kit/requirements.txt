@@ -1,0 +1,27 @@
+# Resume Kit 依赖
+# 核心
+PyYAML>=6.0
+requests>=2.31.0
+
+# PDF解析
+PyMuPDF>=1.23.0        # fitz，PDF文本提取
+pdfplumber>=0.10.0      # 备选PDF解析
+
+# 向量检索（二选一）
+numpy>=1.24.0            # 必需，numpy回退方案
+# faiss-cpu>=1.17.0      # 可选，FAISS向量索引（更快，安装失败时自动回退到numpy）
+
+# 本地Embedding（可选，使用API时不需要）
+# sentence-transformers>=2.2.0
+# torch>=2.0.0
+
+# LLM API
+openai>=1.0.0            # OpenAI兼容API客户端（DeepSeek/Moonshot/智谱等都用这个）
+# anthropic>=0.40.0      # 可选，Claude API
+
+# 简历渲染
+python-docx>=1.1.0
+reportlab>=4.0.0
+
+# 工具
+tqdm>=4.65.0

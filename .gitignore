@@ -1,0 +1,33 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- 敏感配置：真实 API Key 永不入库 ----
+config.yaml
+.env
+*.key
+
+# ---- 模型文件（体积大，不纳入版本库）----
+models/
+*.model
+*.bin
+*.onnx
+
+# ---- 运行时产物 ----
+output/
+history/
+logs/
+*.log
+server_log.txt
+upload/
+uploads/
+test_images/
+test_data/
+
+# ---- 系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
